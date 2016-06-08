@@ -7,13 +7,20 @@ ROOT=`dirname $UBUNTU`
 
 sudo apt-get update
 sudo apt-get -y upgrade
+sudo apt-get install ruby-dev
+
+# RDISCOUNT=`gem list | grep rdiscount | wc -l`
+# guh.... dunno why this is necessary but it seems to be
+# (20160226/thisisaaronland)
+
+sudo gem install rdiscount
 
 if [ ! -d ${ROOT}/certified ]
 then
 
-    sudo apt-get install ruby-ronn
+    sudo apt-get install -y ruby-ronn
 
-    git clone git@github.com:rcrowley/certified.git ${ROOT}/certified
+    git clone https://github.com/rcrowley/certified.git ${ROOT}/certified
     cd ${ROOT}/certified
 
     sudo make install
@@ -26,3 +33,4 @@ if [ ${TEST} = 0 ]
 then
     echo "certified" >> ${ROOT}/.gitignore
 fi
+ exit 0
