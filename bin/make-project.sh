@@ -95,6 +95,17 @@ echo "------------------------------"
 cp ${PROJECT}/www/include/secrets.php.example ${PROJECT}/www/include/secrets.php
 # rm ${PROJECT}/www/include/secrets.php.example
 
+echo "setting up Makefile"
+echo "------------------------------"
+
+if [ -f ${PROJECT}/Makefile ]
+then
+    touch ${PROJECT}/Makefile
+fi
+
+echo "" >> ${PROJECT}/Makefile
+cat ${TOOLS}/make/Makefile >> ${PROJECT}/Makefile
+
 echo "all done";
 echo "------------------------------"
 echo ""
