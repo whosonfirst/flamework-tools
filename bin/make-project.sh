@@ -61,6 +61,11 @@ echo "cloning ubuntu utilities"
 
 cp -r ${TOOLS}/ubuntu ${PROJECT}/
 
+echo "setting up flamework-bin"
+
+cp ${TOOLS}/flamework-bin/*.sh ${PROJECT}/bin/
+cp ${TOOLS}/flamework-bin/*.php ${PROJECT}/bin/
+
 echo "setting up .htaccess files"
 
 cp ${TOOLS}/apache/.htaccess-deny ${PROJECT}/apache/.htaccess
