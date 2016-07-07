@@ -73,6 +73,10 @@ echo "setting up (application) config files"
 
 cp ${PROJECT}/www/include/secrets.php.example ${PROJECT}/www/include/secrets.php
 
+echo "setting up .gitignore"
+
+cp ${TOOLS}/git/dotgitnore ${PROJECT}/.gitignore
+
 echo "setting up Makefile"
 
 if [ -f ${PROJECT}/Makefile ]
