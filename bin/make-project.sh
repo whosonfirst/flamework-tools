@@ -10,10 +10,12 @@ PROJECT_NAME=`basename ${PROJECT}`
 
 TMP="/tmp/${PROJECT}"
 
-echo "cloning dependencies"
-echo "------------------------------";
+if [ ! -d ${PROJECT} ]
+then
+    mkdir ${PROJECT}
+fi
 
-# git clone https://github.com/whosonfirst/flamework.git ${PROJECT}/
+echo "cloning dependencies"
 git clone https://github.com/whosonfirst/flamework.git ${TMP}/
 
 for WHAT in `ls -a ${TMP}`
@@ -21,35 +23,15 @@ do
     if [ -z "${WHAT//[^.]/}" ]
     then
 	cp -r ${TMP}/${WHAT} ${PROJECT}/${WHAT}
-	echo $WHAT
     fi
     
 done
 
 rm -rf ${TMP}
 
-exit 1
-
-if [ ! -d ${PROJECT} ]
-then
-    mkdir ${PROJECT}
-fi
-
-# echo "configuting git things"
-# echo "------------------------------";
-
-# echo "*~" >> ${PROJECT}/.gitignore
-# rm -rf ${PROJECT}/.git
-# rm -f ${PROJECT}/.gitattributes
-
-echo "setting up README files"
-echo "------------------------------";
-
-echo ${PROJECT_NAME} > ${PROJECT}/README.md
-echo "--" >> ${PROJECT}/README.md
+echo "# ${PROJECT_NAME}\n" > ${PROJECT}/README.md
 
 echo "removing unnecessary files"
-echo "------------------------------";
 
 rm -rf ${PROJECT}/www/cron
 rm -rf ${PROJECT}/docs
@@ -60,11 +42,11 @@ rm -f ${PROJECT}/LICENSE
 rm -f ${PROJECT}/www/paging.php
 rm -f ${PROJECT}/www/templates/page_paging.txt
 
+
 # TODO: figure out if sudo is necessary
 # sudo chown -R www-data ${PROJECT}/www/templates_c
 
 echo "setting up apache files"
-echo "------------------------------";
 
 mkdir -p ${PROJECT}/apache
 echo "*.conf" >> ${PROJECT}/apache/.gitignore
@@ -76,12 +58,10 @@ perl -p -i -e "s!__PROJECT_ROOT__!${PROJECT}!" ${PROJECT}/apache/${PROJECT_NAME}
 perl -p -i -e "s!__PROJECT_NAME__!${PROJECT_NAME}!" ${PROJECT}/apache/${PROJECT_NAME}.conf
 
 echo "cloning ubuntu utilities"
-echo "------------------------------";
 
 cp -r ${TOOLS}/ubuntu ${PROJECT}/
 
 echo "setting up .htaccess files"
-echo "------------------------------";
 
 cp ${TOOLS}/apache/.htaccess-deny ${PROJECT}/apache/.htaccess
 cp ${TOOLS}/apache/.htaccess-deny ${PROJECT}/ubuntu/.htaccess
@@ -90,13 +70,10 @@ cp ${TOOLS}/apache/.htaccess-deny ${PROJECT}/bin/.htaccess
 cp ${TOOLS}/apache/.htaccess-noindexes ${PROJECT}/.htaccess
 
 echo "setting up (application) config files"
-echo "------------------------------"
 
 cp ${PROJECT}/www/include/secrets.php.example ${PROJECT}/www/include/secrets.php
-# rm ${PROJECT}/www/include/secrets.php.example
 
 echo "setting up Makefile"
-echo "------------------------------"
 
 if [ -f ${PROJECT}/Makefile ]
 then
@@ -106,6 +83,6 @@ fi
 echo "" >> ${PROJECT}/Makefile
 cat ${TOOLS}/make/Makefile >> ${PROJECT}/Makefile
 
-echo "all done";
-echo "------------------------------"
-echo ""
+echo "all done"
+
+exit 0
