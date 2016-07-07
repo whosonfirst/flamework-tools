@@ -44,8 +44,8 @@ fi
 
 echo "DROP DATABASE IF EXISTS ${DBNAME};" >> /tmp/${DBNAME}.sql;
 echo "CREATE DATABASE ${DBNAME};" >> /tmp/${DBNAME}.sql
-# this doesn't work on older versions of mysql but I don't remember which version that is... (20160608/thisisaaronland)
-echo "DROP user '${USERNAME}'@'localhost';" >> /tmp/${DBNAME}.sql
+# this requires mysql 5.7 or higher...
+# echo "DROP USER IF EXISTS '${USERNAME}'@'localhost';" >> /tmp/${DBNAME}.sql
 echo "CREATE user '${USERNAME}'@'localhost' IDENTIFIED BY '${PASSWORD}';" >> /tmp/${DBNAME}.sql
 echo "GRANT SELECT,UPDATE,DELETE,INSERT ON ${DBNAME}.* TO '${USERNAME}'@'localhost' IDENTIFIED BY '${PASSWORD}';" >> /tmp/${DBNAME}.sql
 echo "FLUSH PRIVILEGES;" >> /tmp/${DBNAME}.sql
