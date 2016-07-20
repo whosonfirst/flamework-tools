@@ -50,6 +50,7 @@ echo "setting up apache files"
 
 mkdir -p ${PROJECT}/apache
 echo "*.conf" >> ${PROJECT}/apache/.gitignore
+echo "*.bak" >> ${PROJECT}/apache/.gitignore
 
 cp ${TOOLS}/apache/example.conf ${PROJECT}/apache/${PROJECT_NAME}.conf.example
 cp ${TOOLS}/apache/example.conf ${PROJECT}/apache/${PROJECT_NAME}.conf
