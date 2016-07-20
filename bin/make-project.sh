@@ -80,7 +80,7 @@ cp ${PROJECT}/www/include/secrets.php.example ${PROJECT}/www/include/secrets.php
 
 echo "setting up .gitignore"
 
-cp ${TOOLS}/git/dotgitnore ${PROJECT}/.gitignore
+cp ${TOOLS}/git/dotgitignore ${PROJECT}/.gitignore
 
 echo "setting up Makefile"
 
