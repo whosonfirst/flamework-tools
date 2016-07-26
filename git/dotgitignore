@@ -5,3 +5,4 @@ www/include/secrets_dev.php
 www/include/secrets*.php
 tests/coverage.state
 coverage/
+.DS_Store
