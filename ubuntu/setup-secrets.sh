@@ -25,7 +25,7 @@ then
 fi
 
 # We probably don't care about any errors...
-PHP='php -d display_errors=off -q'
+PHP='/usr/bin/php -d display_errors=off -q'
 
 COOKIE_SECRET=`${PHP} ${PROJECT}/bin/generate_secret.php`
 CRUMB_SECRET=`${PHP} ${PROJECT}/bin/generate_secret.php`
